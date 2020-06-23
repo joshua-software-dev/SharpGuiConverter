@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Optimize>true</Optimize>
+    <TrimUnusedDependencies>true</TrimUnusedDependencies>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'alpine' ">
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
+    <IlcDisableReflection>true</IlcDisableReflection>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+    <StaticallyLinked>true</StaticallyLinked>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'contained' ">
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
+    <IlcDisableReflection>true</IlcDisableReflection>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'dependent' ">
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(Configuration)' == 'alpine' Or '$(Configuration)' == 'contained' ">
+    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
+  </ItemGroup>
+
+</Project>
