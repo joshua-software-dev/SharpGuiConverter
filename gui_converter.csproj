@@ -7,17 +7,11 @@
     <TrimUnusedDependencies>true</TrimUnusedDependencies>
   </PropertyGroup>
   
-  <PropertyGroup Condition=" '$(Configuration)' == 'alpine' ">
-    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
-    <IlcDisableReflection>true</IlcDisableReflection>
-    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
-    <StaticallyLinked>true</StaticallyLinked>
-  </PropertyGroup>
-  
   <PropertyGroup Condition=" '$(Configuration)' == 'contained' ">
-    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
-    <IlcDisableReflection>true</IlcDisableReflection>
-    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(Configuration)' == 'dependent' ">
@@ -25,11 +19,24 @@
     <SelfContained>false</SelfContained>
   </PropertyGroup>
   
+  <PropertyGroup Condition=" '$(Configuration)' == 'corert' ">
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
+    <IlcDisableReflection>true</IlcDisableReflection>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'corert-musl' ">
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
+    <IlcDisableReflection>true</IlcDisableReflection>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+    <StaticallyLinked>true</StaticallyLinked>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
   </ItemGroup>
   
-  <ItemGroup Condition=" '$(Configuration)' == 'alpine' Or '$(Configuration)' == 'contained' ">
+  <ItemGroup Condition=" '$(Configuration)' == 'corert' Or '$(Configuration)' == 'corert-musl' ">
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
   </ItemGroup>
 
