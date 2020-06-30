@@ -2,7 +2,7 @@
 using System.IO;
 using McMaster.Extensions.CommandLineUtils;
 
-namespace gui_converter
+namespace SharpGuiConverter
 {
     internal static class Program
     {

@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="../Version/Version.csproj" />
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Configurations>Contained;CoreRt;CoreRtMusl;Debug;Dependent</Configurations>
+    <Platforms>AnyCPU</Platforms>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <Optimize>true</Optimize>
+    <TrimUnusedDependencies>true</TrimUnusedDependencies>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Contained' ">
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <PublishTrimmed>true</PublishTrimmed>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Dependent' ">
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'CoreRt' ">
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
+    <IlcDisableReflection>true</IlcDisableReflection>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'CoreRtMusl' ">
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
+    <IlcDisableReflection>true</IlcDisableReflection>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+    <StaticallyLinked>true</StaticallyLinked>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Contained' And '$([MSBuild]::IsOsPlatform(Linux))' == 'true' And '$(RuntimeIdentifier)' == 'linux-x64' ">
+      <PublishReadyToRun>true</PublishReadyToRun>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Contained' And '$([MSBuild]::IsOsPlatform(OSX))' == 'true' And '$(RuntimeIdentifier)' == 'osx.10.10-x64' ">
+      <PublishReadyToRun>true</PublishReadyToRun>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Contained' And '$([MSBuild]::IsOsPlatform(Windows))' == 'true' And '$(RuntimeIdentifier)' == 'win-x64' ">
+      <PublishReadyToRun>true</PublishReadyToRun>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(Configuration)' == 'CoreRt' Or '$(Configuration)' == 'CoreRtMusl' ">
+    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
+  </ItemGroup>
+
+</Project>

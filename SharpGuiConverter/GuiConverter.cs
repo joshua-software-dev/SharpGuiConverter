@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
-using static gui_converter.GuiUtility;
+using static SharpGuiConverter.GuiUtility;
 
-namespace gui_converter
+namespace SharpGuiConverter
 {
     public static class GuiConverter
     {
